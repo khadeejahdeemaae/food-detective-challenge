@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food Detective Challenge</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%A5%97%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <button id="musicToggleBtn" class="music-toggle" type="button" aria-label="Toggle music">🎵 Music</button>
+  <main class="game-shell">
+    <section id="startScreen" class="screen screen-active hero-screen">
+      <div class="floating-food food-one">🍓</div>
+      <div class="floating-food food-two">🥦</div>
+      <div class="floating-food food-three">🥛</div>
+      <div class="chef-badge" aria-hidden="true">👩‍🍳</div>
+      <p class="mission-label">Mission 1</p>
+      <h1>🥗 Food Detective Challenge</h1>
+      <h2>Young Healthy Chef</h2>
+      <p class="hero-copy">Help the school chef find the correct food categories!</p>
+      <button id="startGameBtn" class="primary-button pulse-button" type="button">▶ Start Game</button>
+    </section>
+
+    <section id="rulesScreen" class="screen rules-screen" aria-hidden="true">
+      <div class="panel wide-panel">
+        <h2>📜 กติกา</h2>
+        <ul class="rules-list">
+          <li>นักเรียนสแกนลิงก์เข้าเกมจากแท็บเล็ต</li>
+          <li>เลือกกลุ่มของตนเองก่อนเริ่มเล่น</li>
+          <li>เกมมี 25 ข้อ หมวดหมู่ละ 5 คำ</li>
+          <li>แต่ละกลุ่มปรึกษากันก่อนตอบ</li>
+          <li>แตะหมวดหมู่อาหารที่ถูกต้อง</li>
+          <li>ตอบถูกได้ 10 คะแนน ตอบผิดได้ 0 คะแนน</li>
+          <li>คะแนนจะส่งไปที่หน้าจอครูเมื่อเล่นจบ</li>
+        </ul>
+
+        <div class="teacher-pick">
+          <p>เลือกกลุ่มของนักเรียน</p>
+          <div id="groupPicker" class="group-picker" role="radiogroup" aria-label="Starting group">
+            <button class="group-choice selected" data-group="0" type="button">Group 1</button>
+            <button class="group-choice" data-group="1" type="button">Group 2</button>
+            <button class="group-choice" data-group="2" type="button">Group 3</button>
+            <button class="group-choice" data-group="3" type="button">Group 4</button>
+            <button class="group-choice" data-group="4" type="button">Group 5</button>
+            <button class="group-choice" data-group="5" type="button">Group 6</button>
+          </div>
+        </div>
+
+        <button id="startMissionBtn" class="primary-button rocket-button" type="button">🚀 Start Mission</button>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen" aria-hidden="true">
+      <aside class="scoreboard" aria-label="Scoreboard">
+        <div class="score-title">⭐ Scores</div>
+        <div id="scoreList" class="score-list"></div>
+      </aside>
+
+      <section class="play-area">
+        <div class="round-strip">
+          <span id="roundCounter">Round 1 / 25</span>
+          <span id="timerBadge">⏱ 20</span>
+          <span id="currentGroupBadge">Group 1</span>
+        </div>
+
+        <div class="food-stage">
+          <div id="foodPicture" class="food-picture" aria-hidden="true">🍎</div>
+          <div id="foodWord" class="food-word">Apple</div>
+        </div>
+
+        <div id="answerButtons" class="answer-grid" aria-label="Food categories"></div>
+      </section>
+    </section>
+
+    <section id="feedbackScreen" class="screen feedback-screen" aria-hidden="true">
+      <div id="feedbackCard" class="panel feedback-card">
+        <div id="feedbackTitle" class="feedback-title">🎉 Excellent!</div>
+        <p id="feedbackText">Apple belongs to</p>
+        <div id="feedbackCategory" class="feedback-category">🍎 Fruits</div>
+        <div id="feedbackPoints" class="points-bubble">+10 Points</div>
+      </div>
+    </section>
+
+    <section id="endScreen" class="screen end-screen" aria-hidden="true">
+      <div class="panel wide-panel final-panel">
+        <h2>🏆 Mission Complete</h2>
+        <div id="rankingList" class="ranking-list"></div>
+        <p id="submitStatus" class="submit-status">กำลังส่งคะแนนไปที่หน้าจอครู...</p>
+        <button id="shareFacebookBtn" class="secondary-button" type="button">📣 Share on Facebook</button>
+        <button id="playAgainBtn" class="primary-button" type="button">🔁 Play Again</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="celebrationLayer" class="celebration-layer" aria-hidden="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
