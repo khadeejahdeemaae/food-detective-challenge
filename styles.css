@@ -722,6 +722,182 @@ h1 {
   box-shadow: 0 10px 0 #b72d50, 0 20px 34px rgba(45, 36, 65, 0.22);
 }
 
+.teacher-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.teacher-review-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 230px;
+  min-height: 74px;
+  padding: 14px 24px;
+  border: 5px solid #fff;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #7ee8bd 0%, #2fc982 100%);
+  color: #17335f;
+  font-family: var(--font-thai);
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+  font-weight: 1000;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 9px 0 #1e8d62, 0 20px 34px rgba(45, 36, 65, 0.18);
+}
+
+.teacher-review-link:hover {
+  transform: translateY(-2px);
+}
+
+.review-dashboard {
+  max-width: 1320px;
+}
+
+.review-hero {
+  min-height: 210px;
+  background:
+    radial-gradient(circle at 10% 85%, rgba(255, 216, 77, 0.82) 0 15%, transparent 16%),
+    radial-gradient(circle at 90% 28%, rgba(255, 140, 169, 0.32) 0 17%, transparent 18%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.48), rgba(232, 251, 255, 0.24));
+}
+
+.review-controls,
+.review-focus,
+.review-table-card {
+  margin-bottom: 18px;
+  padding: clamp(18px, 3vw, 26px);
+}
+
+.review-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 1.3fr);
+  align-items: center;
+  gap: 20px;
+}
+
+.review-controls h2,
+.review-focus h2,
+.review-table-card h2 {
+  margin: 0 0 8px;
+  color: #184a7a;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  line-height: 1.2;
+}
+
+.review-controls p,
+.review-focus p {
+  margin: 0;
+  color: #43527c;
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.review-group-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.review-chip {
+  min-height: 46px;
+  padding: 8px 16px;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  background: #e8fbff;
+  color: #184a7a;
+  font-family: var(--font-thai);
+  font-size: 1.05rem;
+  font-weight: 1000;
+  box-shadow: 0 5px 0 rgba(38, 52, 91, 0.12);
+  cursor: pointer;
+}
+
+.review-chip.active {
+  background: linear-gradient(180deg, #ffd84d, #ffb33c);
+  color: #6f3a00;
+  box-shadow: 0 5px 0 #c77918;
+}
+
+.review-focus-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.review-focus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.review-focus-card {
+  min-height: 132px;
+  padding: 16px;
+  border: 4px solid #fff;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.82) 0 18%, transparent 19%),
+    linear-gradient(180deg, #fff2a8 0%, #ffd36d 100%);
+  box-shadow: 0 8px 0 rgba(183, 122, 24, 0.28);
+}
+
+.review-focus-card span,
+.review-focus-card strong,
+.review-focus-card small {
+  display: block;
+}
+
+.review-focus-card span {
+  color: #17335f;
+  font-size: clamp(1.25rem, 2.4vw, 1.8rem);
+  font-weight: 1000;
+  line-height: 1.1;
+}
+
+.review-focus-card strong {
+  margin-top: 8px;
+  color: #16883d;
+  font-size: 1.12rem;
+}
+
+.review-focus-card small {
+  margin-top: 6px;
+  color: #904710;
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+
+.review-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.review-table-wrap {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.review-answer-table td:nth-child(3) {
+  color: #17335f;
+  font-size: 1.08rem;
+  font-weight: 1000;
+}
+
+.review-answer-table td:nth-child(4),
+.review-answer-table td:nth-child(5) {
+  font-weight: 900;
+}
+
 .teacher-links {
   width: 100%;
   display: grid;
@@ -1260,6 +1436,28 @@ h1 {
     min-width: 0;
   }
 
+  .teacher-actions {
+    justify-content: stretch;
+  }
+
+  .teacher-actions > * {
+    width: 100%;
+  }
+
+  .review-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .review-group-buttons {
+    justify-content: flex-start;
+  }
+
+  .review-focus-header,
+  .review-table-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .teacher-links {
     grid-template-columns: 1fr;
   }
@@ -1380,6 +1578,54 @@ h1 {
 
   body.report-printing .report-table th,
   body.report-printing .report-table td {
+    border: 1px solid #bbb;
+    font-size: 11pt;
+  }
+
+  body.review-printing {
+    overflow: visible;
+    background: #fff;
+    color: #111;
+  }
+
+  body.review-printing .teacher-hero,
+  body.review-printing .review-controls,
+  body.review-printing .review-focus,
+  body.review-printing .report-print-button {
+    display: none !important;
+  }
+
+  body.review-printing .teacher-dashboard {
+    width: 100%;
+    padding: 0;
+  }
+
+  body.review-printing .review-table-card {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: #fff;
+  }
+
+  body.review-printing .review-table-card h2 {
+    color: #111;
+  }
+
+  body.review-printing .report-table {
+    box-shadow: none;
+  }
+
+  body.review-printing .report-table th {
+    background: #eee;
+    color: #111;
+  }
+
+  body.review-printing .report-table th,
+  body.review-printing .report-table td {
     border: 1px solid #bbb;
     font-size: 11pt;
   }
