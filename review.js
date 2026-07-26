@@ -3,6 +3,7 @@ const reviewGroupButtons = document.querySelector("#reviewGroupButtons");
 const reviewFocus = document.querySelector("#reviewFocus");
 const reviewTableWrap = document.querySelector("#reviewTableWrap");
 const printReviewBtn = document.querySelector("#printReviewBtn");
+const downloadReviewBtn = document.querySelector("#downloadReviewBtn");
 
 let reviewScores = [];
 let activeGroup = "all";
@@ -11,6 +12,18 @@ printReviewBtn.addEventListener("click", () => {
   document.body.classList.add("review-printing");
   window.print();
   window.setTimeout(() => document.body.classList.remove("review-printing"), 500);
+});
+
+downloadReviewBtn.addEventListener("click", () => {
+  const answers = getFilteredAnswers();
+
+  if (!answers.length) {
+    window.alert("ยังไม่มีคำตอบให้ดาวน์โหลดค่ะ");
+    return;
+  }
+
+  const stamp = fileStamp();
+  downloadTextFile(`food-detective-review-${stamp}.csv`, buildReviewCsv(answers), "text/csv;charset=utf-8");
 });
 
 loadReview();
@@ -142,6 +155,51 @@ function renderAnswerTable() {
       <tbody>${rows}</tbody>
     </table>
   `;
+}
+
+function buildReviewCsv(answers) {
+  const rows = [[
+    "Group",
+    "Question",
+    "Word",
+    "Student Answer",
+    "Correct Answer",
+    "Result"
+  ]];
+
+  answers.forEach((answer) => {
+    rows.push([
+      `Group ${answer.group}`,
+      answer.number,
+      answer.word || "",
+      answer.selectedCategory || "",
+      answer.correctCategory || "",
+      answer.isCorrect ? "Correct" : "Wrong"
+    ]);
+  });
+
+  return rows.map((row) => row.map(csvCell).join(",")).join("\n");
+}
+
+function csvCell(value) {
+  return `"${String(value ?? "").replaceAll('"', '""')}"`;
+}
+
+function downloadTextFile(filename, content, type) {
+  const blob = new Blob([type.includes("csv") ? `\ufeff${content}` : content], { type });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+}
+
+function fileStamp() {
+  const now = new Date();
+  const pad = (value) => String(value).padStart(2, "0");
+  return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${pad(now.getHours())}${pad(now.getMinutes())}`;
 }
 
 function escapeHtml(value) {
