@@ -1,0 +1,17 @@
+Online access notes
+
+The local classroom links only work when student devices are on the same Wi-Fi.
+For phones using mobile data or a different Wi-Fi, the game needs a public online URL.
+
+After you get a public URL:
+1. Double-click set-online-link.cmd
+2. Paste the public URL, for example:
+   https://your-food-detective-game.onrender.com/
+3. Refresh the teacher page:
+   http://127.0.0.1:8123/teacher.html
+4. The QR Code will point to the online URL.
+
+Important:
+- If the game is hosted online, the server must run online too, because student scores are sent to the teacher dashboard.
+- Static-only hosting is not enough for the score dashboard.
+- Good hosting choices are Render, Railway, Fly.io, or a school server that can run Node.js.

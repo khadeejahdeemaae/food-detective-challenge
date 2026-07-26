@@ -1,0 +1,18 @@
+Food Detective Challenge - classroom links
+
+Before class:
+1. Double-click start-classroom-game.cmd
+2. Keep that black window open while students play.
+3. Open the teacher dashboard:
+   http://Khadejah:8123/teacher.html
+
+Student QR link:
+http://Khadejah:8123/
+
+Backup student link if the computer-name link does not open:
+http://172.18.1.175:8123/
+
+Important:
+- Teacher computer and student tablets must use the same Wi-Fi.
+- The game link works while the teacher computer is on and start-classroom-game.cmd is running.
+- For a link that works from anywhere all the time, the game must be hosted online.
