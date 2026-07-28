@@ -1,7 +1,40 @@
 function renderCuteFoodArt(target, food) {
   target.classList.add("food-art");
   target.setAttribute("aria-label", food.word || "food");
-  target.innerHTML = buildFoodSvg(food);
+  target.innerHTML = "";
+
+  const image = new Image();
+  image.className = "real-food-photo";
+  image.alt = food.word || "food";
+
+  image.addEventListener("load", () => {
+    target.classList.add("has-real-photo");
+  });
+
+  image.addEventListener("error", () => {
+    target.classList.remove("has-real-photo");
+    target.innerHTML = buildFoodSvg(food);
+  });
+
+  target.appendChild(image);
+  image.src = getFoodImagePath(food);
+}
+
+function getFoodImagePath(food) {
+  if (food.image) {
+    return food.image;
+  }
+
+  return `assets/foods/${slugFoodName(food.word)}.jpg`;
+}
+
+function slugFoodName(value) {
+  return String(value || "food")
+    .trim()
+    .toLowerCase()
+    .replaceAll("&", "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 function buildFoodSvg(food) {
