@@ -6,6 +6,7 @@ const os = require("os");
 const PORT = Number(process.env.PORT || 8123);
 const ROOT = __dirname;
 const SCORE_FILE = path.join(ROOT, "scores.json");
+const HISTORY_FILE = path.join(ROOT, "score-history.json");
 const PUBLIC_URL_FILE = path.join(ROOT, "public-url.txt");
 
 const mimeTypes = {
@@ -26,6 +27,14 @@ const server = http.createServer(async (request, response) => {
       return sendJson(response, { scores, links: getClassroomLinks() });
     }
 
+    if (request.method === "GET" && url.pathname === "/api/history") {
+      return sendJson(response, { history: readHistory() });
+    }
+
+    if (request.method === "GET" && url.pathname === "/api/export.csv") {
+      return sendCsv(response, buildCsv(scores));
+    }
+
     if (request.method === "POST" && url.pathname === "/api/submit") {
       const body = await readJson(request);
       const result = normalizeScore(body);
@@ -33,10 +42,21 @@ const server = http.createServer(async (request, response) => {
       scores.push(result);
       scores.sort((a, b) => a.group - b.group);
       writeScores(scores);
+      appendHistory({
+        type: "submit",
+        savedAt: new Date().toISOString(),
+        result,
+        scores
+      });
       return sendJson(response, { ok: true, scores });
     }
 
     if (request.method === "POST" && url.pathname === "/api/reset") {
+      appendHistory({
+        type: "reset",
+        savedAt: new Date().toISOString(),
+        scores
+      });
       scores = [];
       writeScores(scores);
       return sendJson(response, { ok: true, scores });
@@ -111,6 +131,7 @@ function normalizeScore(body) {
   const correct = Math.max(0, Math.min(totalQuestions, Number(body.correct) || Math.round(score / 10)));
 
   return {
+    mission: String(body.mission || "Mission 1: Food Detective Challenge").slice(0, 80),
     group,
     score,
     total,
@@ -133,9 +154,75 @@ function writeScores(nextScores) {
   fs.writeFileSync(SCORE_FILE, JSON.stringify(nextScores, null, 2), "utf8");
 }
 
+function readHistory() {
+  try {
+    return JSON.parse(fs.readFileSync(HISTORY_FILE, "utf8"));
+  } catch (error) {
+    return [];
+  }
+}
+
+function appendHistory(entry) {
+  const history = readHistory();
+  history.push(entry);
+  fs.writeFileSync(HISTORY_FILE, JSON.stringify(history.slice(-200), null, 2), "utf8");
+}
+
 function sendJson(response, data) {
   response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
   response.end(JSON.stringify(data));
+}
+
+function sendCsv(response, csv) {
+  response.writeHead(200, {
+    "Content-Type": "text/csv; charset=utf-8",
+    "Content-Disposition": "attachment; filename=\"food-detective-scores.csv\""
+  });
+  response.end(`\ufeff${csv}`);
+}
+
+function buildCsv(scoreRows) {
+  const rows = [[
+    "Group",
+    "Mission",
+    "Score",
+    "Total",
+    "Correct",
+    "Total Questions",
+    "Question",
+    "Word",
+    "Student Answer",
+    "Correct Answer",
+    "Result",
+    "Finished At"
+  ]];
+
+  scoreRows.forEach((score) => {
+    const answers = Array.isArray(score.answers) && score.answers.length > 0 ? score.answers : [{}];
+
+    answers.forEach((answer, index) => {
+      rows.push([
+        `Group ${score.group}`,
+        score.mission || "",
+        score.score,
+        score.total,
+        score.correct,
+        score.totalQuestions,
+        index + 1,
+        answer.word || "",
+        answer.selectedCategory || "",
+        answer.correctCategory || "",
+        answer.isCorrect === undefined ? "" : answer.isCorrect ? "Correct" : "Wrong",
+        score.finishedAt || ""
+      ]);
+    });
+  });
+
+  return rows.map((row) => row.map(csvCell).join(",")).join("\n");
+}
+
+function csvCell(value) {
+  return `"${String(value ?? "").replaceAll('"', '""')}"`;
 }
 
 function getClassroomLinks() {

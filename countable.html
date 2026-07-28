@@ -3,35 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Food Detective Challenge</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%A5%97%3C/text%3E%3C/svg%3E" />
+  <title>Smart Chef Challenge</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%91%A9%E2%80%8D%F0%9F%8D%B3%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <button id="musicToggleBtn" class="music-toggle" type="button" aria-label="Toggle music">🎵 Music</button>
+<body class="mission-two-body">
+  <button id="musicToggleBtn" class="music-toggle" type="button" aria-label="Toggle music">Music</button>
   <main class="game-shell">
-    <section id="startScreen" class="screen screen-active hero-screen">
-      <div class="floating-food food-one">🍓</div>
-      <div class="floating-food food-two">🥦</div>
+    <section id="startScreen" class="screen screen-active hero-screen mission-two-hero">
+      <div class="floating-food food-one">🍚</div>
+      <div class="floating-food food-two">🍎</div>
       <div class="floating-food food-three">🥛</div>
       <div class="chef-badge" aria-hidden="true">👩‍🍳</div>
-      <p class="mission-label">Mission 1</p>
-      <h1>🥗 Food Detective Challenge</h1>
-      <h2>Young Healthy Chef</h2>
-      <p class="hero-copy">Help the school chef find the correct food categories!</p>
-      <button id="startGameBtn" class="primary-button pulse-button" type="button">▶ Start Game</button>
-      <a class="mission-switch-link" href="countable.html">Mission 2: Smart Chef Challenge</a>
+      <p class="mission-label">Mission 2</p>
+      <h1>Smart Chef Challenge</h1>
+      <h2>a, an or some?</h2>
+      <p class="hero-copy">Help the smart chef choose the correct word before each food!</p>
+      <button id="startGameBtn" class="primary-button pulse-button" type="button">Start Game</button>
+      <a class="mission-switch-link" href="index.html">Back to Mission 1</a>
     </section>
 
     <section id="rulesScreen" class="screen rules-screen" aria-hidden="true">
       <div class="panel wide-panel">
         <h2>📜 กติกา</h2>
         <ul class="rules-list">
-          <li>นักเรียนสแกนลิงก์เข้าเกมจากแท็บเล็ต</li>
-          <li>เลือกกลุ่มของตนเองก่อนเริ่มเล่น</li>
-          <li>เกมมี 25 ข้อ หมวดหมู่ละ 5 คำ</li>
-          <li>แต่ละกลุ่มปรึกษากันก่อนตอบ</li>
-          <li>แตะหมวดหมู่อาหารที่ถูกต้อง</li>
+          <li>นักเรียนเล่นเป็นกลุ่ม เลือกกลุ่มของตนเองก่อนเริ่มเกม</li>
+          <li>แต่ละข้อจะมีรูปอาหารและคำศัพท์ภาษาอังกฤษ</li>
+          <li>ช่วยกันเลือกคำที่อยู่หน้าอาหารให้ถูกต้อง: a, an หรือ some</li>
+          <li>ใช้ a กับคำนามนับได้เสียงพยัญชนะ เช่น a banana, a carrot</li>
+          <li>ใช้ an กับคำนามนับได้เสียงสระ เช่น an apple, an egg</li>
+          <li>ใช้ some กับคำนามนับไม่ได้หรืออาหารที่เป็นปริมาณ เช่น some rice, some milk</li>
           <li>ตอบถูกได้ 10 คะแนน ตอบผิดได้ 0 คะแนน</li>
           <li>คะแนนจะส่งไปที่หน้าจอครูเมื่อเล่นจบ</li>
         </ul>
@@ -48,37 +49,38 @@
           </div>
         </div>
 
-        <button id="startMissionBtn" class="primary-button rocket-button" type="button">🚀 Start Mission</button>
+        <button id="startMissionBtn" class="primary-button rocket-button" type="button">Start Mission</button>
       </div>
     </section>
 
     <section id="gameScreen" class="screen game-screen" aria-hidden="true">
       <aside class="scoreboard" aria-label="Scoreboard">
-        <div class="score-title">⭐ Scores</div>
+        <div class="score-title">Scores</div>
         <div id="scoreList" class="score-list"></div>
       </aside>
 
       <section class="play-area">
         <div class="round-strip">
-          <span id="roundCounter">Round 1 / 25</span>
-          <span id="timerBadge">⏱ 20</span>
+          <span id="roundCounter">Round 1 / 20</span>
+          <span id="timerBadge">20</span>
           <span id="currentGroupBadge">Group 1</span>
         </div>
 
-        <div class="food-stage">
+        <div class="food-stage grammar-stage">
           <div id="foodPicture" class="food-picture" aria-hidden="true">🍎</div>
           <div id="foodWord" class="food-word">Apple</div>
+          <p id="hintText" class="grammar-hint">Choose the best word: a, an or some.</p>
         </div>
 
-        <div id="answerButtons" class="answer-grid" aria-label="Food categories"></div>
+        <div id="answerButtons" class="answer-grid grammar-answer-grid" aria-label="a, an or some"></div>
       </section>
     </section>
 
     <section id="feedbackScreen" class="screen feedback-screen" aria-hidden="true">
       <div id="feedbackCard" class="panel feedback-card">
-        <div id="feedbackTitle" class="feedback-title">🎉 Excellent!</div>
-        <p id="feedbackText">Apple belongs to</p>
-        <div id="feedbackCategory" class="feedback-category">🍎 Fruits</div>
+        <div id="feedbackTitle" class="feedback-title">Excellent!</div>
+        <p id="feedbackText">The correct phrase is</p>
+        <div id="feedbackCategory" class="feedback-category">an apple</div>
         <div id="feedbackPoints" class="points-bubble">+10 Points</div>
       </div>
     </section>
@@ -88,14 +90,13 @@
         <h2>🏆 Mission Complete</h2>
         <div id="rankingList" class="ranking-list"></div>
         <p id="submitStatus" class="submit-status">กำลังส่งคะแนนไปที่หน้าจอครู...</p>
-        <button id="shareFacebookBtn" class="secondary-button" type="button">📣 Share on Facebook</button>
-        <button id="playAgainBtn" class="primary-button" type="button">🔁 Play Again</button>
+        <button id="playAgainBtn" class="primary-button" type="button">Play Again</button>
       </div>
     </section>
   </main>
 
   <div id="celebrationLayer" class="celebration-layer" aria-hidden="true"></div>
   <script src="food-art.js"></script>
-  <script src="script.js"></script>
+  <script src="countable.js"></script>
 </body>
 </html>

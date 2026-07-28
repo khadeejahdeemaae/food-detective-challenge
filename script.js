@@ -164,7 +164,7 @@ function renderQuestion() {
   const question = state.deck[state.roundIndex];
   roundCounter.textContent = `Round ${state.roundIndex + 1} / ${state.deck.length}`;
   currentGroupBadge.textContent = `Group ${state.groupIndex + 1}`;
-  foodPicture.textContent = question.emoji;
+  renderCuteFoodArt(foodPicture, question);
   foodWord.textContent = question.word;
   answerButtons.innerHTML = "";
 
@@ -428,6 +428,7 @@ async function submitScore() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        mission: "Mission 1: Food Detective Challenge",
         group: state.groupIndex + 1,
         score: state.score,
         total: state.deck.length * 10,
